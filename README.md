@@ -127,8 +127,6 @@ populateTable(pickups);
 
 Repeat for all modules that reference `MOCK`.
 
----
-
 ## Responsibilities
 
 **Frontend Team**
@@ -137,33 +135,6 @@ Repeat for all modules that reference `MOCK`.
 * Inject API data into HTML placeholders.
 * Handle UI interactions and animations.
 * Ensure responsive design and accessibility.
-
-**Backend & Database Teams**
-
-* Provide all APIs in documented structure.
-* Handle authentication, validation, and business logic.
-* Serve real-time data for dashboard components.
-
----
-
-## Best Practices
-
-* Avoid hardcoding data in HTML.
-* Do not modify element `id`s used for dynamic injection.
-* Use consistent API response formats.
-* Implement error handling for failed API requests.
-* Add loading states where necessary.
-
----
-
-## Future Enhancements
-
-* Transition to React or Vue for better state management.
-* Implement WebSocket or SSE for real-time updates.
-* Add role-based dashboard views.
-* Improve analytics charts and filtering options.
-
----
 
 ## Contributors
 
