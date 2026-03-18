@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recycle Ekhaya — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">♻️</div>
+    <a href="/" class="logo-text">Recycle Ekhaya</a>
+  </div>
+
+  <nav class="sidebar-nav" aria-label="Main navigation">
+    <span class="nav-label-section">Main</span>
+
+    <a class="nav-item active" href="/" data-page="dashboard">
+      <span class="nav-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </span>
+      <span class="nav-text">Dashboard</span>
+    </a>
+
+    <a class="nav-item" href="/pickups" data-page="pickups">
+      <span class="nav-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </span>
+      <span class="nav-text">Schedule Pickup</span>
+      <!-- Populated by JS from GET /api/pickups/pending-count -->
+      <span class="nav-badge" id="pendingPickupsBadge" hidden></span>
+    </a>
+
+    <a class="nav-item" href="/orders" data-page="orders">
+      <span class="nav-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      </span>
+      <span class="nav-text">Orders</span>
+    </a>
+
+    <a class="nav-item" href="/wallet" data-page="wallet">
+      <span class="nav-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      </span>
+      <span class="nav-text">Wallet</span>
+    </a>
+
+    <span class="nav-label-section">Insights</span>
+
+    <a class="nav-item" href="/analytics" data-page="analytics">
+      <span class="nav-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </span>
+      <span class="nav-text">AI Analytics</span>
+    </a>
+
+    <a class="nav-item" href="/transactions" data-page="transactions">
+      <span class="nav-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      </span>
+      <span class="nav-text">Transactions</span>
+    </a>
+
+    <span class="nav-label-section">Account</span>
+
+    <a class="nav-item" href="/profile" data-page="profile">
+      <span class="nav-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </span>
+      <span class="nav-text">Profile</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="nav-item sign-out-btn" id="signOutBtn" type="button">
+      <span class="nav-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </span>
+      <span class="nav-text">Sign Out</span>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main" id="main">
+
+  <!-- HEADER -->
+  <header class="header">
+    <button class="toggle-btn" id="toggleBtn" type="button" aria-label="Toggle sidebar">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+    <div class="header-welcome">
+      <!-- Populated by JS — GET /api/auth/me -->
+      <h2>Good <span id="greetingTime">morning</span>, <span id="userFirstName">—</span> 👋</h2>
+      <p><span id="headerDate"></span> &nbsp;·&nbsp; <span id="headerLocation">—</span></p>
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" type="button" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+
+      <button class="icon-btn" type="button" aria-label="Notifications" id="notifBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <!-- Shown/hidden by JS — GET /api/notifications/unread-count -->
+        <span class="notif-dot" id="notifDot" hidden></span>
+      </button>
+
+      <!-- Initials populated by JS — GET /api/auth/me -->
+      <a href="/profile" class="avatar" id="userAvatar" aria-label="Profile"></a>
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <main class="content">
+    <h1 class="page-title">Overview</h1>
+    <p class="page-subtitle">Here's what's happening with your recycling activity today.</p>
+
+    <!-- STAT CARDS — values injected by JS (GET /api/dashboard/stats) -->
+    <div class="stat-grid">
+
+      <a href="/wallet" class="stat-card stat-card--accent">
+        <div class="stat-top">
+          <div>
+            <div class="stat-label">Wallet Balance</div>
+            <div class="stat-value" id="statWalletBalance">—</div>
+            <div class="stat-sub">Available for withdrawal</div>
+          </div>
+          <div class="stat-icon">💰</div>
+        </div>
+        <span class="stat-change" id="statWalletChange"></span>
+      </a>
+
+      <a href="/analytics" class="stat-card">
+        <div class="stat-top">
+          <div>
+            <div class="stat-label">Total Recycled</div>
+            <div class="stat-value" id="statTotalRecycled">—</div>
+            <div class="stat-sub">All time materials</div>
+          </div>
+          <div class="stat-icon">♻️</div>
+        </div>
+        <span class="stat-change" id="statRecycledChange"></span>
+      </a>
+
+      <a href="/orders" class="stat-card">
+        <div class="stat-top">
+          <div>
+            <div class="stat-label">Pickups Completed</div>
+            <div class="stat-value" id="statPickups">—</div>
+            <div class="stat-sub">Since Jan 2025</div>
+          </div>
+          <div class="stat-icon">🚛</div>
+        </div>
+        <span class="stat-change" id="statPickupsChange"></span>
+      </a>
+
+      <a href="/analytics" class="stat-card">
+        <div class="stat-top">
+          <div>
+            <div class="stat-label">CO₂ Saved</div>
+            <div class="stat-value" id="statCO2">—</div>
+            <div class="stat-sub">Environmental impact</div>
+          </div>
+          <div class="stat-icon">🌿</div>
+        </div>
+        <span class="stat-change" id="statCO2Change"></span>
+      </a>
+
+    </div>
+
+    <!-- BOTTOM GRID -->
+    <div class="bottom-grid">
+
+      <!-- PICKUP REQUESTS TABLE — rows injected by JS (GET /api/pickups?limit=6) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Pickup Requests</span>
+          <a href="/orders" class="card-action">View all →</a>
+        </div>
+        <table class="pickup-table">
+          <thead>
+            <tr>
+              <th>Request ID</th>
+              <th>Address</th>
+              <th>Type</th>
+              <th>Weight</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="pickupTableBody">
+            <!-- Rows injected by dashboard.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RECYCLING MIX — bars injected by JS (GET /api/analytics/mix) -->
+      <div class="card analytics-card">
+        <div class="card-header">
+          <span class="card-title">Recycling Mix</span>
+          <a href="/analytics" class="card-action">Details →</a>
+        </div>
+
+        <div class="analytics-body">
+          <!-- Material rows injected by dashboard.js -->
+          <div id="analyticsMaterials"></div>
+
+          <div class="analytics-summary">
+            <div class="summary-chip">
+              <div class="chip-label">This Month</div>
+              <div class="chip-value"><span id="chipThisMonth">—</span><span class="chip-unit">kg</span></div>
+            </div>
+            <div class="summary-chip">
+              <div class="chip-label">Avg / Pickup</div>
+              <div class="chip-value"><span id="chipAvgPickup">—</span><span class="chip-unit">kg</span></div>
+            </div>
+          </div>
+
+          <!-- WEEKLY CHART — bars injected by JS (GET /api/analytics/weekly) -->
+          <div class="weekly-section">
+            <p class="weekly-label">Weekly Activity</p>
+            <div class="mini-chart" id="miniChartContainer"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
