@@ -143,5 +143,5 @@ Repeat for all modules that reference `MOCK`.
 
 **Contributors**:
 
-* Rikhotsp 223555268 — Frontend Developer
+* Rikhotso 223555268 — Frontend Developer
 * 232190825 S Zulu - Frontend Developer
